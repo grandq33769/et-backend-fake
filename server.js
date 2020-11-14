@@ -4,6 +4,25 @@ const jsonServer = require("json-server");
 const server = jsonServer.create();
 const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
+const reducer = (result, dateStr) => {
+  const check =
+    dayjs(dateStr, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD HH:mm:ss") ===
+    dateStr;
+  return result && check;
+};
+const checkDateArgs = (req, res, next) => {
+  const neededArgs = ["start_time", "end_time"];
+  const checkKeys = neededArgs.every((key) =>
+    Object.keys(req.query).includes(key)
+  );
+  const allDates = Object.values(req.query);
+  const checkDates = allDates.reduce(reducer, true);
+  const pass = checkKeys && checkDates;
+  console.log(`pass:${pass} checkKeys: ${checkKeys} checkDates: ${checkDates}`);
+  req.query = {};
+  pass ? next() : res.status(400).send("Failed. Check Args.");
+};
+
 const isAuthorized = (req) => {
   return (
     req.headers.authorization ===
@@ -27,26 +46,16 @@ server.use("/DR_bid", (req, res, next) => {
   if (req.method === "POST") {
     const neededArgs = ["start_time", "end_time", "volume", "price"];
     const pass = neededArgs.every((key) => Object.keys(req.body).includes(key));
-    res.status(pass ? 200 : 500).send(pass ? "OK" : "Failed");
+    res.status(pass ? 200 : 400).send(pass ? "OK" : "Failed");
   } else {
-    const neededArgs = ["start_time", "end_time"];
-    const checkKeys = neededArgs.every((key) =>
-      Object.keys(req.query).includes(key)
-    );
-    const allDates = Object.values(req.query);
-    const reducer = (result, dateStr) => {
-      const check =
-        dayjs(dateStr, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD HH:mm:ss") ===
-        dateStr;
-      return result && check;
-    };
-    const checkDates = allDates.reduce(reducer, true);
-    const pass = checkKeys && checkDates;
-    console.log(
-      `pass:${pass} checkKeys: ${checkKeys} checkDates: ${checkDates}`
-    );
-    req.query = {};
-    pass ? next() : res.status(500).send("Failed. Check Args.");
+    checkDateArgs(req, res, next);
+  }
+});
+server.use("/DR_result", (req, res, next) => {
+  if (req.method === "GET") {
+    checkDateArgs(req, res, next);
+  } else {
+    res.status(500).send("Failed");
   }
 });
 server.use((req, res, next) => {
