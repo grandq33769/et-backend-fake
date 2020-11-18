@@ -93,22 +93,13 @@ server.use("/DR_bid", (req, res, next) => {
     let role = getRole(req.headers.authorization);
     if (role === "user") {
       neededArgs = ["volume", "price"];
-      try {
-        pass = checkAttribute(req.body, neededArgs);
-      } catch (err) {
-        pass = false;
-      }
     } else if (role === "aggregator") {
       neededArgs = ["uuid", "start_time", "end_time"];
-      const checkListReducer = (result, bid) => {
-        const check = checkAttribute(bid, neededArgs);
-        return result && check;
-      };
-      try {
-        pass = req.body.reduce(checkListReducer, true);
-      } catch (err) {
-        pass = false;
-      }
+    }
+    try {
+      pass = checkAttribute(req.body, neededArgs);
+    } catch (err) {
+      pass = false;
     }
 
     res.status(pass ? 200 : 400).send(pass ? "OK" : "Failed");
