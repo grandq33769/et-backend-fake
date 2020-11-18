@@ -1,33 +1,27 @@
 {
   "DR_bid": [{
       "uuid": "36d87673-0daf-4ce2-917e-ec6d655d3c0a",
-      "executor": "NCKU",
-      "start_time": "2020-11-11 11:00:00",
-      "end_time": "2020-11-11 12:00:00",
+      "executor": "Carlab_BEMS",
       "volume": 40,
       "price": 8
     },
     {
       "uuid": "515ae958-187a-4503-815f-379d728390b1",
-      "executor": "NCKU",
-      "start_time": "2020-11-11 12:00:00",
-      "end_time": "2020-11-11 13:00:00",
+      "executor": "NCKU_BEMS",
       "volume": 50,
       "price": 6
     },
     {
       "uuid": "ca45ecc1-13a1-4a93-b047-857be806b764",
-      "executor": "Carlab_BEMS",
-      "start_time": "2020-11-11 11:00:00",
-      "end_time": "2020-11-11 12:00:00",
+      "executor": "ABRI_BEMS",
       "volume": 30,
       "price": 8
     }
   ],
   "DR_result": [{
       "uuid": "36d87673-0daf-4ce2-917e-ec6d655d3c0a",
-      "executor": "NCKU",
-      "acceptor": "Carlab_BEMS",
+      "executor": "Carlab_BEMS",
+      "acceptor": "NCKU",
       "start_time": "2020-11-11 11:00:00",
       "end_time": "2020-11-11 12:00:00",
       "volume": 40,
@@ -37,9 +31,21 @@
       "blockchain_url": "https://ropsten.etherscan.io/tx/0xc94ec346cea143d8aab07e3a23a9f24031a9a9ae5b9717d99cf32ac0f57a920d"
     },
     {
+      "uuid": "ca45ecc1-13a1-4a93-b047-857be806b764",
+      "executor": "ABRI_BEMS",
+      "acceptor": "NCKU",
+      "start_time": "2020-11-11 11:00:00",
+      "end_time": "2020-11-11 12:00:00",
+      "volume": 30,
+      "price": 8,
+      "result": true,
+      "rate": 0.11,
+      "blockchain_url": "https://ropsten.etherscan.io/tx/0xc94ec346cea143d8aab07e3a23a9f24031a9a9ae5b9717d99cf32ac0f57a920d"
+    },
+    {
       "uuid": "515ae958-187a-4503-815f-379d728390b1",
-      "executor": "NCKU",
-      "acceptor": "Carlab_BEMS",
+      "executor": "NCKU_BEMS",
+      "acceptor": "NCKU",
       "start_time": "2020-11-11 12:00:00",
       "end_time": "2020-11-11 13:00:00",
       "volume": 50,
