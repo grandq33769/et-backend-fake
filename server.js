@@ -65,13 +65,13 @@ server.use("/login", (req, res, next) => {
   const { account, password } = req.body;
   let token = {};
   if (req.method === "POST") {
-    if (account == "NCKU" && password == "test") {
+    if (account === "NCKU" && password === "test") {
       token = {
         id: "03f87a5a-a4e6-4536-ba6c-265c03ebd317",
         bearer:
           "OXBiogjCfdKb7m9CEOPhpbjjv0n5OtfltzgMJbSxbP7jVFY8XUNzHqkGidDumQSR",
       };
-    } else if (account == "Carlab_BEMS" && password == "test") {
+    } else if (account === "Carlab_BEMS" && password === "test") {
       token = {
         id: "3b816117-b8e4-4635-9061-9b9dbb3ec96d",
         bearer:
@@ -82,8 +82,8 @@ server.use("/login", (req, res, next) => {
   }
 
   token === {}
-    ? res.status(200).jsonp(token)
-    : res.status(401).send("Auth Failed");
+    ? res.status(401).send("Auth Failed")
+    : res.status(200).jsonp(token)
 });
 
 server.use("/DR_bid", (req, res, next) => {
@@ -91,12 +91,10 @@ server.use("/DR_bid", (req, res, next) => {
     let pass = false;
     let neededArgs = [];
     let role = getRole(req.headers.authorization);
-    console.log(role);
     if (role === "user") {
       neededArgs = ["volume", "price"];
       pass = checkAttribute(req.body, neededArgs);
     } else if (role === "aggregator") {
-      console.log(req.body);
       neededArgs = ["uuid", "start_time", "end_time"];
       const checkListReducer = (result, bid) => {
         const check = checkAttribute(bid, neededArgs);
