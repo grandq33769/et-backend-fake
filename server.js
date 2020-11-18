@@ -56,8 +56,8 @@ const getRole = (token) => {
 };
 
 const checkAttribute = (body, attributes) => {
-  return attributes.every((key) => Object.keys(body).includes(key))
-}
+  return attributes.every((key) => Object.keys(body).includes(key));
+};
 
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
@@ -83,7 +83,7 @@ server.use("/login", (req, res, next) => {
 
   token === {}
     ? res.status(401).send("Auth Failed")
-    : res.status(200).jsonp(token)
+    : res.status(200).jsonp(token);
 });
 
 server.use("/DR_bid", (req, res, next) => {
@@ -93,14 +93,22 @@ server.use("/DR_bid", (req, res, next) => {
     let role = getRole(req.headers.authorization);
     if (role === "user") {
       neededArgs = ["volume", "price"];
-      pass = checkAttribute(req.body, neededArgs);
+      try {
+        pass = checkAttribute(req.body, neededArgs);
+      } catch (err) {
+        pass = false;
+      }
     } else if (role === "aggregator") {
       neededArgs = ["uuid", "start_time", "end_time"];
       const checkListReducer = (result, bid) => {
         const check = checkAttribute(bid, neededArgs);
         return result && check;
       };
-      pass = req.body.reduce(checkListReducer, true);
+      try {
+        pass = req.body.reduce(checkListReducer, true);
+      } catch (err) {
+        pass = false;
+      }
     }
 
     res.status(pass ? 200 : 400).send(pass ? "OK" : "Failed");
