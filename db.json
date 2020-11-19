@@ -29,6 +29,7 @@
       "result": true,
       "rate": 0.11,
       "settlement": 35.2,
+      "status": "結算中",
       "blockchain_url": "https://ropsten.etherscan.io/tx/0xc94ec346cea143d8aab07e3a23a9f24031a9a9ae5b9717d99cf32ac0f57a920d"
     },
     {
@@ -42,6 +43,7 @@
       "result": true,
       "rate": 0.11,
       "settlement": 26.4,
+      "status": "進行中",
       "blockchain_url": "https://ropsten.etherscan.io/tx/0xc94ec346cea143d8aab07e3a23a9f24031a9a9ae5b9717d99cf32ac0f57a920d"
     },
     {
@@ -55,6 +57,7 @@
       "result": false,
       "rate": 0,
       "settlement":0,
+      "status": "未得標",
       "blockchain_url": "https://ropsten.etherscan.io/tx/0x07178bc6d022a826d7f85b64f00b77bf878d04519cfbdc6e33aacd802b191435"
     }
   ]
