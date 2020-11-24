@@ -6,7 +6,7 @@ const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
 const dateReducer = (result, dateStr) => {
   const check =
-    dayjs(dateStr, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD HH:mm:ss") ===
+    dayjs(dateStr, "YYYY-MM-DD").format("YYYY-MM-DD") ===
     dateStr;
   return result && check;
 };
